@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class diagnosisConfig(AppConfig):
+class ConvetingbeConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "diagnosis"
+    name = "convetingBE"

@@ -23,8 +23,6 @@ venv/
 .idea/
 *.swp
 
-# AI model files
-ai_weights/
+populate_data.py
 
-# media files
-media/*
+ai_weights/
