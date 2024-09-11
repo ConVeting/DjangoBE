@@ -1,29 +1,11 @@
 from django.db import models
-from datetime import datetime
-from zoneinfo import ZoneInfo
-import os
-
-def diag_img_upload(instance, filename):
-    NOW_KST = datetime.now(ZoneInfo("Asia/Seoul"))
-    
-    _, file_extension = os.path.splitext(filename)
-    timestamp = NOW_KST.strftime("%Y%m%d_%H%M%S")
-    
-    owner = instance.owner
-    pet = instance.pet
-    part = instance.part
-    
-    photo_name = f"{timestamp}_{owner}_{pet}_{part}{file_extension}"
-
-    # 파일을 저장할 경로 지정
-    return os.path.join('photos/', photo_name)
 
 class SymptomDescription(models.Model):
     seq = models.PositiveIntegerField(primary_key=True, db_column='seq')
     owner = models.CharField(max_length=30)
     pet = models.CharField(max_length=20)
     part = models.CharField(max_length=20)
-    photo = models.ImageField(upload_to=diag_img_upload)
+    photo = models.CharField(max_length=255)
     
     class Meta:
         db_table = 'symptomdescription'
@@ -44,15 +26,12 @@ class Prediction(models.Model):
     eye6 = models.DecimalField(max_digits=5, decimal_places=2)
     eye7 = models.DecimalField(max_digits=5, decimal_places=2)
     eye8 = models.DecimalField(max_digits=5, decimal_places=2)
-    eye9 = models.DecimalField(max_digits=5, decimal_places=2)
-    eye10 = models.DecimalField(max_digits=5, decimal_places=2)
     
     class Meta:
         db_table = 'prediction'
     
 class Disease(models.Model):
-    code = models.CharField(max_length=10, primary_key=True, db_column='code')
-    name = models.CharField(max_length=255, db_column='name')
+    disease = models.CharField(max_length=255, primary_key=True, db_column='disease')
     symptom = models.TextField(max_length=500)
     cure = models.TextField(max_length=500, default='Nothing')
     
